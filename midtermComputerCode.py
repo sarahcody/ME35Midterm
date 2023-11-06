@@ -73,8 +73,8 @@ def main():
             celsius = 1
             farenheit = 0
         elif color == "red":
-            celsius = 1
-            farenheit = 0
+            celsius = 0
+            farenheit = 1
 
         send_data(celsius, farenheit)
         print("unit sent to dashboard!")
