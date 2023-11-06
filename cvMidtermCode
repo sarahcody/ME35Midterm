@@ -1,0 +1,55 @@
+# to be run on https://chrisrogers.pyscriptapps.com/me35-midterm/latest/
+
+import requests
+import json
+
+# intializes all information needed for the airtable
+# insert your own information here
+airtable_id = ''
+airtable_url = ''
+token = ''
+color = ''
+
+headers = {'Authorization': 'Bearer ' + str(token),
+           'Content-Type': 'application/json',
+           }
+
+url = f'{airtable_url}/Color'
+
+# takes image and divides into red, green, and blue channels
+cv2_image = cv2.cvtColor(np.array(cam.raw_image), cv2.COLOR_RGB2BGR)
+b,g,r = cv2.split(cv2_image)
+
+# makes histograms for each color channel
+b_hist =  cv2.calcHist([b], [0], None, [256], [0, 256])
+g_hist =  cv2.calcHist([g], [0], None, [256], [0, 256])
+r_hist =  cv2.calcHist([r], [0], None, [256], [0, 256])
+
+# determines the index at which the histogram is maximum
+b_max = np.argmax(b_hist)
+g_max = np.argmax(g_hist)
+r_max = np.argmax(r_hist)
+
+# determines most prominent color
+if g_max>b_max and g_max>r_max:
+    color = 'green'
+elif r_max>b_max and r_max>g_max:
+    color = 'red'
+else:
+    color = "ignore"
+
+print('The most prominent color in this image is '+color)
+
+# dictates sending location for the Airtable, where "COLOR" is the name of the column and "color" is the variable established above
+color2send = {
+    'records': [
+        {
+            'fields': {
+                'COLOR': color,
+            }
+        }
+    ]
+}
+
+# posts color to airtable
+post = requests.request("POST", url, headers = headers, data=json.dumps(color2send))
