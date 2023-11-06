@@ -4,7 +4,7 @@ Code for the ME35 midterm
 ## Project Description
 There are 3 main files for this code: mainCode, midtermComputerCode, and cvMidtermScript. mainCode is to be run on the Raspberry Pi Pico W, while midtermComputerCode and cvMidtermCode may be run on any Python platform. The rest of the files are libraries. Any library containing another library will have the GitHub link to the embedded library within the code.  
 ### mainCode
-The purpose of this code is to take in temperature data from a thermistor, and color data (in the form of a name such as "green" or "red") from an Airtable. The color will determine the units for the temperature reading (Fahrenheit or Celsius) and this, paired with the temperature, gets displayed on an LCD screen. Every 5 minutes, these data points are pushed to an Adafruit.IO dashboard using their MQTT broker.
+The purpose of this code is to take in temperature data from a thermistor, and color data (in the form of a name such as "green" or "red") from Airtable. The color will determine the units for the temperature reading (Fahrenheit or Celsius) and this, paired with the temperature, gets displayed on an LCD screen. Every 5 minutes, these data points are pushed to an Adafruit.IO dashboard using their MQTT broker.
 This code requires 5 main libraries to be downloaded onto the Pico: 
 1. thermistor
 2. displayTempLib
